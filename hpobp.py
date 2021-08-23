@@ -1,35 +1,4 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@hoangpro325 
-hoangpro325
-/
-HPO-THH
-1
-0
-0
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-HPO-THH/hpo.py /
-@hoangpro325
-hoangpro325 Update hpo.py
-Latest commit 32f9fa7 4 days ago
- History
- 1 contributor
-1257 lines (1164 sloc)  39.7 KB
-  
-#!/usr/bin/python
+ #!/usr/bin/python
 #coding=utf-8
 import httplib2
 import json
@@ -56,8 +25,8 @@ addons_folder = xbmc.translatePath('special://home/addons')
 image = xbmc.translatePath(os.path.join(path, "icon.png"))
 
 plugin = Plugin()
-addon = xbmcaddon.Addon("plugin.video.hpothh.playlist")
-pluginrootpath = "plugin://plugin.video.hpothh.playlist"
+addon = xbmcaddon.Addon("plugin.video.hpobp.playlist")
+pluginrootpath = "plugin://plugin.video.hpobp.playlist"
 http = httplib2.Http(cache, disable_ssl_certificate_validation=True)
 query_url = "https://docs.google.com/spreadsheets/d/{sid}/gviz/tq?gid={gid}&headers=1&tq={tq}"
 sheet_headers = {
@@ -67,7 +36,7 @@ sheet_headers = {
 
 
 def GetSheetIDFromSettings():
-	sid = "1r339fmqnKknEXoNvozu9Z1f8efiY7v71sqrIIi3g-4A"
+	sid = "1rWQPx2d8M9qmizAOTUoozEFExLUvRcM7mxOK44G0kc4"
 	resp, content = http.request(get_fshare_setting("GSheetURL"), "HEAD")
 	try:
 		sid = re.compile("/d/(.+?)/").findall(resp["content-location"])[0]
@@ -208,9 +177,9 @@ def getItems(url_path="0", tq="select A,B,C,D,E"):
 		if "plugin://" in item["path"]:
 			if "install-repo" in item["path"]:
 				item["is_playable"] = False
-			elif re.search("plugin.video.hpothh.playlist/(.+?)/.+?\://", item["path"]):
+			elif re.search("plugin.video.hpobp.playlist/(.+?)/.+?\://", item["path"]):
 				match = re.search(
-					"plugin.video.hpothh.playlist(/.+?/).+?\://", item["path"])
+					"plugin.video.hpobp.playlist(/.+?/).+?\://", item["path"])
 				tmp = item["path"].split(match.group(1))
 				tmp[-1] = urllib.quote_plus(tmp[-1])
 				item["path"] = match.group(1).join(tmp)
@@ -230,7 +199,7 @@ def getItems(url_path="0", tq="select A,B,C,D,E"):
 			item["path"] = pluginrootpath + "/executebuiltin/-"
 		else:
 			if "spreadsheets/d/" in item["path"]:
-				# https://docs.google.com/spreadsheets/d/1r339fmqnKknEXoNvozu9Z1f8efiY7v71sqrIIi3g-4A/edit#gid=0
+				# https://docs.google.com/spreadsheets/d/1rWQPx2d8M9qmizAOTUoozEFExLUvRcM7mxOK44G0kc4/edit#gid=0
 				match_cache = re.search('cache=(.+?)($|&)', item["path"])
 				match_passw = re.search('passw=(.+?)($|&)', item["path"])
 
@@ -793,7 +762,7 @@ def AddTracking(items):
 	'''
 
 	for item in items:
-		if "plugin.video.hpothh.playlist" in item["path"]:
+		if "plugin.video.hpobp.playlist" in item["path"]:
 			tmps = item["path"].split("?")
 			if len(tmps) == 1:
 				tail = ""
@@ -847,7 +816,7 @@ def get_playable_url(url):
 		yid = match[0][len(match[0])-1].replace('v/', '')
 		url = 'plugin://plugin.video.youtube/play/?video_id=%s' % yid
 	elif "thvli.vn/backend/cm/detail/" in url:
-		get_thvl = "https://docs.google.com/spreadsheets/d/1r339fmqnKknEXoNvozu9Z1f8efiY7v71sqrIIi3g-4A/export?format=tsv&gid=1287121588"
+		get_thvl = "https://docs.google.com/spreadsheets/d/1rWQPx2d8M9qmizAOTUoozEFExLUvRcM7mxOK44G0kc4/export?format=tsv&gid=1287121588"
 		try:
 			(resp, content) = http.request(
 				get_thvl, "GET"
@@ -880,7 +849,7 @@ def get_playable_url(url):
 				pass
 	elif "sphim.tv" in url:
 		http.follow_redirects = False
-		get_sphim = "https://docs.google.com/spreadsheets/d/1r339fmqnKknEXoNvozu9Z1f8efiY7v71sqrIIi3g-4A/export?format=tsv&gid=1082544232"
+		get_sphim = "https://docs.google.com/spreadsheets/d/1rWQPx2d8M9qmizAOTUoozEFExLUvRcM7mxOK44G0kc4/export?format=tsv&gid=1082544232"
 		try:
 			(resp, content) = http.request(
 				get_sphim, "GET"
@@ -1286,16 +1255,3 @@ if os.path.exists(cid_path) == False:
 		f.write(str(uuid.uuid1()))
 if __name__ == '__main__':
 	plugin.run()
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete
