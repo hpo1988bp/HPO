@@ -554,7 +554,7 @@ def FShare(path="0", tracking_string="FShare"):
 				urllib.quote_plus(path),
 				urllib.quote_plus(tracking_string)
 			),
-			'thumbnail': "https://docs.google.com/drawings/d/12OjbFr3Z5TCi1WREwTWECxNNwx0Kx-FTrCLOigrpqG4/pub?w=256&h=256"
+			'thumbnail': "https://i.postimg.cc/0Qqgpd1H/6909780.png"
 		})
 	plugin.add_sort_method(xbmcplugin.SORT_METHOD_UNSORTED)
 	plugin.add_sort_method(xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
