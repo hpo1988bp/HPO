@@ -263,9 +263,9 @@ def getItems(url_path="0", tq="select A,B,C,D,E"):
 				item["info"] = {"type": "video"}
 				item["path"] = pluginrootpath + "/play/" + urllib.quote_plus(item["path"])
 		if item["label2"].startswith("http"):
-			item["path"] += "?sub=" + urllib.quote_plus(item["label2"].encode("utf8"))
+			#item["path"] += "?sub=" + urllib.quote_plus(item["label2"].encode("utf8"))
 		#items += [item]
-	#if url_path == "0":
+	if url_path == "0":
 		add_playlist_item = {
 			"context_menu": [
 				ClearPlaylists(""),
@@ -279,14 +279,14 @@ def getItems(url_path="0", tq="select A,B,C,D,E"):
 		}
 		#items += [add_playlist_item]
 		playlists = plugin.get_storage('playlists')
-		#if 'sections' in playlists:
+		if 'sections' in playlists:
 			for section in playlists['sections']:
 				#item = {
 					"context_menu": [
 						ClearPlaylists(section),
 					]
 				}
-				#if "@@" in section:
+				if "@@" in section:
 					tmp = section.split("@@")
 					passw = tmp[-1]
 					section = tmp[0]
