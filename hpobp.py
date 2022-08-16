@@ -256,54 +256,7 @@ def getItems(url_path="0", tq="select A,B,C,D,E"):
 					urllib.quote_plus(item["label"])
 				)
 				item["path"] = pluginrootpath + \
-					"/executebuiltin/" + urllib.quote_plus(item["path"])
-			else:
-				# Nếu là direct link thì route đến hàm play_url
-				item["is_playable"] = True
-				item["info"] = {"type": "video"}
-				item["path"] = pluginrootpath + "/play/" + urllib.quote_plus(item["path"])
-		if item["label2"].startswith("http"):
-			item["path"] += "?sub=" + urllib.quote_plus(item["label2"].encode("utf8"))
-		items += [item]
-	if url_path == "0":
-		add_playlist_item = {
-			"context_menu": [
-				ClearPlaylists(""),
-			],
-			"label": "[COLOR yellow]*** HPO Plus ***[/COLOR]",
-			"path": "%s/add-playlist" % (pluginrootpath),
-			"thumbnail": "http://1.bp.blogspot.com/-gc1x9VtxIg0/VbggLVxszWI/AAAAAAAAANo/Msz5Wu0wN4E/s1600/playlist-advertorial.png",
-			"is_playable": True,
-			"info": {"type": "video"}
-
-		}
-		items += [add_playlist_item]
-		playlists = plugin.get_storage('playlists')
-		if 'sections' in playlists:
-			for section in playlists['sections']:
-				item = {
-					"context_menu": [
-						ClearPlaylists(section),
-					]
-				}
-				if "@@" in section:
-					tmp = section.split("@@")
-					passw = tmp[-1]
-					section = tmp[0]
-					item["label"] = section
-					item["path"] = "%s/password-section/%s/%s" % (
-						pluginrootpath,
-						passw,
-						section.split("] ")[-1]
-					)
-				else:
-					item["label"] = section
-					item["path"] = "%s/section/%s" % (
-						pluginrootpath,
-						section.split("] ")[-1]
-					)
-				item["thumbnail"] = "https://www.upsieutoc.com/images/2019/06/17/viuiuiuiui.png"
-				items.append(item)
+					"/executebuiltin/" + urllib.quote_plus(item["path"])			
 	return items
 
 
